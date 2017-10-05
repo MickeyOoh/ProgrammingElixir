@@ -8,5 +8,9 @@ defmodule Example do
 	end
 end
 
-#Example.func2
+Example.func1
+|> IO.inspect
+
+Example.func2
+|> IO.inspect
 

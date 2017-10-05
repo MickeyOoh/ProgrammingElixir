@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h2 id="modulesandfunctions-7">ModulesAndFunctions-7</h2>
+<ol style="list-style-type: decimal">
+<li><p>Convert a float to a string with 2 decimal digits.</p>
+<pre><code>iex&gt; :io.format(&quot;~.2f~n&quot;, [2.0/3.0])
+0.67
+:ok
+iex&gt; :erlang.float_to_list(2.0/3.0, [{:decimals, 2}])
+&#39;0.67&#39;</code></pre></li>
+<li><p>Get the value of an operating system environment variable. iex&gt; System.get_env(&quot;HOME&quot;) &quot;/Users/dave&quot;</p></li>
+<li><p>Return the extension component of a file name</p>
+<pre><code>iex&gt; Path.extname(&quot;dave/test.exs&quot;)
+&quot;.exs&quot;
+iex&gt; String.split(&quot;dave/test.exs&quot;, &quot;.&quot;) |&gt; tl |&gt; hd
+&quot;exs&quot;</code></pre></li>
+<li><p>Return the current working directory of the process</p>
+<pre><code>iex&gt; System.cwd
+&quot;/Users/dave/BS2/titles/elixir/Book/yourturn/ModulesAndFunctions&quot;</code></pre></li>
+<li><p>Convert a string containing JSON into Elixir data structures</p>
+<p>There are many options. Some, such as <a href="https://github.com/guedes/exjson">exjson</a>, are specifically for Elixir. Others, such as <a href="https://github.com/hio/erlang-json">erlang-json</a> are Elnag libraries that are usable from Elixir.</p></li>
+<li><p>Execute an command in your operating system's shell</p>
+<pre><code>iex&gt; System.cmd(&quot;date&quot;)
+&quot;Sun Jul 14 15:04:06 CDT 2013\n&quot;</code></pre></li>
+</ol>
+</body>
+</html>

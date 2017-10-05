@@ -27,6 +27,8 @@ defmodule MyList do
 
 end
 
+#IO.puts File.read! ("mylist.exs")
+
 IO.puts "2. square func test"
 IO.puts "  MyList.square []  => #{inspect(MyList.square [])}"
 b = MyList.square [4,5,6]

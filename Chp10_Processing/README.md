@@ -1,6 +1,8 @@
-## Processing Collections ------ Enum and Stream
+Processing Collections —  Enum and Stream
+----
 
-### 1. Enum  --- Processing Collections
+1. Enum —  Processing Collections
+
 * Convert any collection into a list
 ```
 iex> list = Enum.to_list 1..5
@@ -114,9 +116,11 @@ iex> deck |> shuffle |> take(13)
 iex> hands = deck |> shuffle |> chunk(13)
 ```
 
-### 2. Streams --- Lazy Enumerables
-#### The Enum module is greedy. This means that when you pass it a collection, it potentially consumes all the contents of that collection. It also means the result will typically be another collection. 
+
+1. Streams --- Lazy Enumerables
+   The Enum module is greedy. This means that when you pass it a collection, it potentially consumes all the contents of that collection. It also means the result will typically be another collection. 
 enum/pipeline.exs:
+
 ```
 [1, 2, 3, 4, 5]
 |> Enum.map(&(&1 * &1))
@@ -131,6 +135,7 @@ IO.puts File.read!("./words")
 ``` 
 
 1. A Stream Is a Composable Enumerator
+
 ```
 iex> s = Stream.map [1, 3, 5, 7], &(&1 + 1)
 #Stream<[enum: [1, 3, 5, 7], funs: [#Function<37.xxxx/1 in Steam.map/2>]]>

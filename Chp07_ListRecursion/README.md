@@ -1,8 +1,20 @@
-## How iex Displays Lists
-> _Strings and Binaries_ chapter 11, p107, Elixir has two representations for strings. One is the familiar sequnce of characters in consecutive memory locations. Literals written with double quotes use this form.
+Lists and Recursion
+----
+
+Heads and Tails
+----
+
+
+How iex Displays Lists
+----
+
+> _Strings and Binaries_
+> Elixir has two representations for strings.
+> One is the familiar sequnce of characters in consecutive memory locations. Literals written with double quotes use this form.
 > The second form, using single quotes, represents strings as a list of integer codepoints. So the string 'cat' is the three codepoints: 99, 97, and 116
 
-> this is a headache for **iex**. 
+> this is a headache for **iex**. When it sees a list like [99, 97, 116] it doesn't know if it is supposed to be the string 'cat' or a list of three numbers.
+ 
 code:
 ```
 iex> [99, 97, 116]

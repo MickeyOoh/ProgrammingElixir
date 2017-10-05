@@ -9,6 +9,6 @@ people = [
 for person = %{ height: height } <- people,
 	height > 1.5,
 	do: IO.inspect person
-==> %{height: 1.88, name: "Dave"}
-==> %{height: 2.16, name: "Shaquille"}
+#=> %{height: 1.88, name: "Dave"}
+#=> %{height: 2.16, name: "Shaquille"}
 
