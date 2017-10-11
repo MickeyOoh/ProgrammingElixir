@@ -12,7 +12,7 @@ defmodule ColorSigil do
   def sigil_c(color_name,'h'), do: _c(color_name, :hsb)
 
   defp _c(color_name, color_space) do 
-    @color_map[color_space][binary_to_atom(color_name)]
+    @color_map[color_space][String.to_atom(color_name)]
   end
 
   defmacro __using__(_opts) do 

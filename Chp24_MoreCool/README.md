@@ -1,6 +1,9 @@
-## More Cool Stuff
+More Cool Stuff
+-----
   Elixir is packed with features that make coding a joy. This contains a smattering of them.
-### Writing Your Own Sigils
+
+Writing Your Own Sigils
+----
 	You know by now that you can create strings and regular-expression literals using sigils:
 ```
 string = ~s{now is the time}
@@ -12,7 +15,32 @@ When you write a sigils such as ~s{..}, Elixir converts it into a call to the fu
 ```$ elixir line_sigil.exs```
 
 Because we import the sigil_l function inside the example module, the ~l sigil is lexically scoped to this module. Note also that Elixir performs interpolation would be performed.
-The predefined sigil functions are sigil_C, sigil_c, sigil_R, sigil_r, sigil_S, sigil_s, sigil_W, and sigil_w. If you want to override one of these, you'll need to explicitly import the Kernel module and use an _except_ clause to exclude it.
+The predefined sigil functions are 
+* sigil_C  - A character list with no escaping or interpolation
+* sigil_c  - A character list, escaped and interpolated just like a single-quoted string
+* sigil_R  - A regular expression with no escaping or interpolation
+* sigil_r  - A regular expression, escaped and interpolated 
+* sigil_S  - A string with n escaping or interpolation
+* sigil_s  - A string, escaped and interpolated just like a double-quoted
+* sigil_W  - A list of whitespace-delimited words,
+* sigil_w  - A list of whitespace-delimited words,
+
+```
+iex> ~C[1\n2#{1+2}]
+'1\\n2\#{1+2}'
+iex> ~c"1\n2#{1+2}"
+'1\n23'
+iex> ~S[1\n2#{1+2}]
+'1\\n2\#{1+2}"
+iex> ~s/1\n2#{1+2}/
+"1\n23"
+iex> ~W[the c#{'a'}t sat on the mat]
+["the", "c\#{'a'}t", "sat", "on", "the", "mat"]
+iex> ~w[the c#{'a'}t sat on the mat]
+["the", "cat", "sat", "on", "the", "mat"]
+```
+
+If you want to override one of these, you'll need to explicitly import the Kernel module and use an _except_ clause to exclude it.
  we used the heredoc syntax("""). This passes our function a multiline string with leading spaces removed. Sigil options are not supported with heredocs, so we'll switch to a regular literal syntax to play with them.
 
 Here's the implementation of a sigil -l that takes a multiline string and returns a list containing each line as a separate string. We know -l.. is converted into a call to sigil_l, so we just write a simple function in the LineSigil module.

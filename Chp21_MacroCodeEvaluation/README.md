@@ -100,7 +100,9 @@ iex> quote do: [ do: 1 + 2, else: 3 + 4]
 When we write "abc", we create a binary containing a string. The double quotes say "interpret what follows as a string of characters and return the appropriate representation."
 **quote** is the same: it says "interpret the content of the block that follows as code, and return the internal representation."
 
-### Using the Representation As Code
+
+Using the Representation As Code
+-----
 When we extract the internal representation of some code, we stop Elixir from adding it automatically to the tuples of code it is building furing compilation -- we've effectively created a free-standing esland of code. How do we inject that code back into our program's internal representation?
 Two ways.
 First - the macro. Just like with a function, the value a marco returns is the last expression evaluated in that macro. That expression is expected to be a fragment of code in Elixir's internal representation. But Elixir does not return this represenation to the code that invoked the macro.
@@ -108,7 +110,26 @@ Instead it injects the code back into the internal representation of our porgram
 
 We can demonstrate this in two steps. First,here's a macro that simply returns its parameter. The code we give it when we invoke the macro is passed as an internal representation, and when the macro returns that code, that represenation is injected back into the compile tree.
 
-### The Unquote Function
+![eg.exs](eg.exs)
+```
+{{:., [line: 10], [{:__aliases__, [counter: 0, line: 10], [:IO]}, :puts]},
+ [line: 10], ["hello"]}
+ hello
+```
+Now we'll change that file to return a different piece of code. We use quote to generate the internal form:
+
+![eg1.exs](eg1.exs)
+```
+{{:., [line: 10], [{:__aliases__, [counter: 0, line: 10], [:IO]}, :puts]},
+ [line: 10], ["hello"]}
+ Different code
+```
+Even though we passed IO.puts("hello") as a parameter. It was never executed by Elixir.
+Instead, it ran the code fragment we returned using quote.
+
+
+The Unquote Function
+----
 Let's get two things out of the way. First, we can use _unquote_ only inside a quote block. Second, _unqoute_ is a silly name. It should really be something like *inject_code_fragment*.
 ```
 defmacro macro(code) do 
@@ -165,7 +186,8 @@ any entries in the keyword list are passed as code fragments.
 The macro extracts the _do:_ and/or _else:_ clauses from that list. It is then ready to generate the code for our _if_ statement, so it opens a _quote_ block. That block contains an Elixir _case_ expression. This case expression has to evaluate the condition that is passed in, so it uses _unquote_ to inject that condition's code as its parameter.
 When Elixir executes this case statement, it evaluates the condition. At that point, _case_ will match the first caluse matches, we want to execute the code that was passed in either the _do:_ or _else:_ values in the keyword list, so we use _unquote_ again to inject that code into the _case_.
 
-## Using Bindings to Inject Values
+Using Bindings to Inject Values
+----
 Remember that there are two ways of injecting values into quoted blocks.
 One is _unquote_. The other is to use a binding. However, the two have different uses and different semantics.
 A binding is simply a keyword list of variable names and their values. When
@@ -192,8 +214,10 @@ end
 IO.puts Test.fred
 ```
 macro_no_binding.exs:12: invalid syntax in def x1()
+
 At the time the macro is called, the each loop hasn't yet executed, so we
 have no valid name to pass it. This is where bindings come in:
+
 ```macro_binding.exs
 defmodule My do
   defmacro mydef(name) do 
@@ -209,13 +233,22 @@ end
 
 IO.puts Test.fred			#=> fred
 ```
-### Macros Are Hygienic
+Two things happen here.
+First: the binding makes the current value of *name* available inside the body of the quoted block.
+Second: the presence of the *bind_quoted:* option automatically defers the execution of the *unquote* calls in the body.
+This way, the methods are defined at runtime.
+
+As its name implies, *bind_quoted* takes a quoted code fragment. Simple things such as tuples are the same as normal and quoted code, but for most values you probably want to quote them or use *Macro.escape* to ensure that your code fragment will be interpreted correctly.
+
+Macros Are Hygienic
+----
   It is tempting to think of macros as some kind of textual subsitution
 	a macro's body is expanded as text and then compiled at the point of call.But that's not the case.
-```hygiene.ex
 
-```
-### Other Ways to Run Code Fragments
+![hygiene.ex](hygiene.ex)
+
+Other Ways to Run Code Fragments
+----
 We can use the function *Code.eval_quoted* to evaluate code fragments, such as those returned by _quote_.
 ```
 iex> fragment = quote do: IO.puts("hello")
