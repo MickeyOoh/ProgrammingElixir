@@ -12,7 +12,7 @@ regex  = ~r{..h..}
 Have you ever wished you could extend these sigils to add your own specific literal types? You can.
 When you write a sigils such as ~s{..}, Elixir converts it into a call to the function *sigil_s*. It passed the function two values. The first is the string between the delimiters. The second is a list containing any lowercase letters that immediately follow the closing delimiter.
 
-```$ elixir line_sigil.exs```
+`$ elixir line_sigil.exs`
 
 Because we import the sigil_l function inside the example module, the ~l sigil is lexically scoped to this module. Note also that Elixir performs interpolation would be performed.
 The predefined sigil functions are 
@@ -53,11 +53,12 @@ Let's write a sigil that enables us to specify color constants. If we say ~c{red
 $ elixir color.exs
   Error at binary_to_atom undefined.
 
-### Multi-app Umbrella Projects
+Multi-app Umbrella Projects
+----
   It is unfortuate that Erlang chose to call self-contained bundles of code _apps_. In many ways, they are closer to being shared libraries. And as your projects grow, you man find yourself wanting to split your code into multiple libraries, or apps. Fortunately, mix makes this painless.
 
 #### Create an Umbrealla Project
-We use *mix* new to create an umbrella project, passing it the --umbrella option.
+We use *mix* new to create an umbrella project, passing it the **--umbrella** option.
 ```
 $ mix new --umbrella eval
 * creating REAME.md
@@ -65,6 +66,7 @@ $ mix new --umbrella eval
 * creating apps
 ..
 $ cd eval/apps
+
 $ mix new line_sigil
 * creating ..
 $ mix new evaluator
@@ -79,5 +81,11 @@ Generated evaluator.app
 Compiled lib/line_sigil.ex
 Generated line_sigil.app
 ```
+
+Now we have an umbrella project containing two regular projects. Because there's nothing special about the subprojects, you can use all the regular mix commands in them. At the top level, though, you can build all the subprojects as a unit.
+
+#### Making the Subproject Decision
+The fact that subprojects are just regular mix projects means you don't have to worry about whether to start a new project using an umbrella. Simpply start as a simple project. If you later discover the need for an umbrella project, create it and move your existing simple project into the apps directory.
+
 
 

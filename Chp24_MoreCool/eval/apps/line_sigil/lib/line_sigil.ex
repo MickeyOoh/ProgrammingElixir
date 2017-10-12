@@ -5,16 +5,16 @@ defmodule LineSigil do
   multiple lines and returns a list of those lines.
 
   ## Example usage
-      #iex> import LineSigil
-      #    nil
-      #iex> -l\"\"\"
-      #...> one
-      #...> two
-      #...> three
-      #...> \"\"\"
-      #["one","two","three"]
-  """
 
+      iex> import LineSigil
+      LineSigil
+      iex> ~l\"""
+      ...> one
+      ...> two
+      ...> three
+      ...> \"""
+      ["one","two","three"]
+  """
   def sigil_l(lines, _opts) do 
     #lines |> String.rstrip |> String.split("\n")
     lines |> String.trim_trailing |> String.split("\n")
@@ -33,5 +33,4 @@ defmodule Example do
   end
 end
 
-IO.inspect Example.lines
 

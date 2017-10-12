@@ -1,6 +1,6 @@
-
 defimpl Inspect, for: Bitmap do 
   import Inspect.Algebra
+
   def inspect(%Bitmap{value: value}, _opts) do 
     concat([
       nest(
