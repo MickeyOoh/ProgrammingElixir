@@ -15,3 +15,16 @@ IO.puts File.open!("./words")
 # stream3.exs
 IO.puts File.stream!("./words")
 |> Enum.max_by(&String.length/1)
+
+
+# Enum.map and Stream.map comparison
+range = 1..5
+test = Enum.map range, &(&1 * 2)
+IO.inspect test
+
+range = 1..3
+stream = Stream.map(range, &(&1 * 2))
+IO.inspect stream
+test = Enum.map(stream, &(&1 + 1))
+IO.inspect test
+

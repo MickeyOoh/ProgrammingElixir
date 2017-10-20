@@ -110,3 +110,23 @@ World!
 iex(two@MickeyMac) >
 ```	
 
+
+Connecting nodes on different machines
+-----
+```
+# Machine 1
+$ iex --name foo@192.168.2.202 --cookie chocolate
+iex(foo@192.168.2.202)> Node.ping :"bar@192.168.2.16"
+:pong    # returns :pang if ping failed
+iex(foo@192.168.2.202)> Node.list
+[:"bar@192.168.2.16"]
+
+# Machine 2
+$ iex --name bar@192.168.2.16 --cookie chocolate
+iex(bar@192.168.2.16)> Node.list
+[:"foo@192.168.2.202"]
+```
+
+
+
+```

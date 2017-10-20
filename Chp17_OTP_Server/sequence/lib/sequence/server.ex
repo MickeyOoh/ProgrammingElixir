@@ -1,9 +1,6 @@
 defmodule Sequence.Server do 
   use GenServer
 
-  #####
-  # External API
-
   def start_link(current_number) do 
     IO.puts "start_link is called #{current_number}." 
     GenServer.start_link(__MODULE__, current_number, name: __MODULE__)
@@ -26,7 +23,9 @@ defmodule Sequence.Server do
     { :noreply, current_number + delta}
   end
   def format_status(_reason, [ _pdict, state ]) do 
-    [data: [{'State', "My current state is '#{inspect state}', and I'm happy"}]]
+    [data: 
+     [{'State',"My current state is '#{inspect state}', and I'm happy"}]
+    ]
   end
 end
 

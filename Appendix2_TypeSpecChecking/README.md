@@ -15,6 +15,7 @@ When Specifiations Are Used
 Elixir type specifications come from Erlang. It is very common to see Erlang code where every exported(public) function is preceded by a **-spec** line.
 This is metadata that gives type information. The following code comes from the Elixir parser (which is [currently] written in Erlang).
 It says the *return_error* function takes two parameters, an integer and any type, and never returns.
+
 ```
 -spec return_error(integer(), any()) -> no_return().
 return_error(Line, Message) ->
@@ -52,4 +53,43 @@ end
 ```
 
 #### Anonymous Functions
+Anonymous functions are specified using(head -> return_type)
+
+The head specifies the arity and possibly the types of the function parameters.
+It can be ..., meaning an arbitrary number of  arbitrarily typed arguments, or a list of types, in which case the number of types is the function's arity.
+
+(... -> integer)							# Arbitrary parameters; returns an integer 
+(list(integer) -> integer)    # Takes a list of integers and returns an integer
+(() -> String.t)							# 
+(integer, atom -> list(atom)) #
+
+You can put parentheses around the head if you find it clearer.
+
+( atom, float -> list)
+( (atom, float) -> list)
+(list(integer) -> integer)
+((list(integer)) -> integer)
+
+#### Handling Truthly Values
+The types *as_boolean(T)* says that the actual value matched will be of type T,
+but the function that uses the value will treat it as a *truthy* value(anything other than *nil* or *false* is considered true). 
+
+`@spec count(t, (element -> as_boolean(term))) :: non_reg_integer`
+
+#### Some Example
+
+
+
+
+Defining New Types
+-----
+The attribute **@type** can be used to define new types.
+
+@type type_name :: type_specification
+
+Elixir uses this to predefine some built-in types and aliases.
+
+@type term :: any
+@type binary :: <<_::_*8>>
+
 

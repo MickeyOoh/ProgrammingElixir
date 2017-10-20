@@ -115,7 +115,15 @@ iex> deck = for rank <- '23456789TJQKA', suit <- 'CDHS', do: [suit, rank]
 iex> deck |> shuffle |> take(13)
 iex> hands = deck |> shuffle |> chunk(13)
 ```
-
+* flat_map(enumerable, fun):
+```
+iex(1)> Enum.flat_map([:a,:b,:c], fn(x) -> [x, x] end)
+[:a, :a, :b, :b, :c, :c]
+iex(2)> Enum.flat_map([{1, 3}, {4, 6}], fn( {x, y}) -> x..y end)
+[1, 2, 3, 4, 5, 6]
+iex(3)> Enum.flat_map([:a, :b, :c], fn(x) -> [[x]] end)
+[[:a], [:b], [:c]]
+```
 
 1. Streams --- Lazy Enumerables
    The Enum module is greedy. This means that when you pass it a collection, it potentially consumes all the contents of that collection. It also means the result will typically be another collection. 

@@ -34,8 +34,6 @@ OTP:Servers, OTP:Supervisors, OTP:Applications
  For example, when someone sends a request to our serer, OTP will call our handle_call function, passing in the request, the caller, and the current server state.
  Our function responds by returning a tuple containing an action to take, the return value for the request, and an updated state.
 
-
-		
  We're using two functions from the Elixir _GenServer_ module. The start_lik function behaves like the spawn_link function. It asks _GenServer_ to start a new process and link to us (so we'll get notifications if it fails).
   
 ```
