@@ -38,3 +38,18 @@ The *setup* function is invoked automatically before each test is run.
 (There's also *setup_all* that is just invoked once for the test run.)
 The *setup* function returns a keyword list of named test data. In testing circles, this data, which is used to drive tests, is called a *fixture*.
 
+
+OptionParser
+-----
+
+```
+iex> OptionParser.parse(["--debug"], switches: [debug: :boolean])
+{[debug: true], [], []}
+iex> OptionParser.parse(["--source", "lib"], switches: [source: :string])
+{[source: "lib"], [], []}
+
+iex> OptionParser.parse(["--source-path", "lib", "test/enum_test.exs", "--verbose"],
+...>         switches: [source_path: :string, verbose: :boolean])
+{[source_path: "lib", verbose: true], ["test/enum_test.exs", []}
+```
+

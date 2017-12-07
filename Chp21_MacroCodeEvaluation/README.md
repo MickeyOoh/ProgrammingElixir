@@ -62,13 +62,15 @@ Macros Inject Code
 >	 **defmacro**, **quote**,  **unquote**
 > When we pass parameters to a macro, Elixir doesn't evaluate them. Instead, it passes them as tuples representing their code. We can examine this behavior using a simple macro definition that prints out its parameter.
 
-### Load Order
+Load Order
+-----
 You may be wondering about the struture of the preceding code. We put the macro definition in one module, and the usage of that macro in another. And that second module included a _require_ call.
 Macros are expanded before a program executes, so the macro defined in one module must be available as Elixir is compiling another module that uses those macros.
 The **require** tells Elixir to ensure the named module is compiled before the current one. In practice it is used to make the macros defined in one module available in another.
 But the reason for the two modules is less clear. It has to do with the fact that Elixir first compiles source files and then runs them.
  
-### The Quote Function
+The Quote Function
+------
  We've seen that when we pass parameters to a macro they are not evaluated.
  The language comes with a function, **quote**, that also forces code to remain in its unevaluated form. **quote** takes a block that returns the internal representation of that block.
 ```
@@ -110,7 +112,7 @@ Instead it injects the code back into the internal representation of our porgram
 
 We can demonstrate this in two steps. First,here's a macro that simply returns its parameter. The code we give it when we invoke the macro is passed as an internal representation, and when the macro returns that code, that represenation is injected back into the compile tree.
 
-![eg.exs](eg.exs)
+![eg.exs](eg0.exs)
 ```
 {{:., [line: 10], [{:__aliases__, [counter: 0, line: 10], [:IO]}, :puts]},
  [line: 10], ["hello"]}

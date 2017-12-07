@@ -64,14 +64,15 @@ iex> List.flatten([[[1], 2], [[[3]]]])
 #
 iex> List.foldl([1,2,3], "", fn value, acc -> "#{value}(#{acc})" end)
 3(2(1()))
-iex> List.foldr([1,2,3], "", fn value, acc -> "#{value}(#{acc})" end)
-1(2(3()))
+iex> @spec foldl([elem], acc, (elem, acc -> acc)) :: acc when elem: var, acc: var
 iex> List.foldl([1,2,3,4], 0, fn(x, acc) -> x - acc end)
 2
 # x=1,acc=0			1 - 0 => acc = 1
 # x=2,acc=1			2 - 1 => acc = 1
 # x=3,acc=1			3 - 1 => acc = 2
 # x=4,acc=2     4 - 2 => acc = 2    ==> result
+iex> List.foldr([1,2,3], "", fn value, acc -> "#{value}(#{acc})" end)
+1(2(3()))
 #
 # Merging lists and splitting them apart
 #

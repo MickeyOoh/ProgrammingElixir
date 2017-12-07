@@ -94,3 +94,18 @@ defmodule Example do
 end
 ```
 
+mix command
+----
+
+```
+#!/usr/bin/env elixir
+Mix.start
+Mix.CLI.main
+```
+
+**env** is used for selecting command from Pathes as we don't know where command(elixir) exists.
+
+**Mix.start** : ???????
+**Mix.CLI.main** : ?????
+
+

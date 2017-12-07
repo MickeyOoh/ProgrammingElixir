@@ -13,6 +13,41 @@ How Our Code Will do it
 Our program will run from the command line. We(ll need to pass in a GitHub ueser name, a project name, and an optional count. This means we'll need some basic command-line parsing.
 We'll need to access GitHub as an HTTP client, so we'll have to find a library that gives us the client side of HTTP. The response that comes back will be in JSON, so we'll need a library that handles JSON, too. We'll need to be able to sort the resulting structure. And finally, we'll need to lay out selected fields in a table.
 
+*issues elixir-lang elixir*
+
+|--------------------|
+| parse              |
+|--------------------|
+
+*{ user, project, n}*
+*{ "elixir-lang", "elixir", 4}*
+
+|--------------------|
+| fetch from Github  | Issues.GithubIssues.fetch(user, project)
+|--------------------|
+
+*github json*
+
+|--------------------|
+| convert            |
+|--------------------|
+`internal representation`
+
+|--------------------|
+| sort               |
+|--------------------|
+`sorted`
+
+|--------------------|
+| first(n)           |
+|--------------------|
+`data subset`
+
+|--------------------|
+| table format       |
+|--------------------|
+`pretty table`
+
 Task: Use Mix to Create Our New Project
 -----
 

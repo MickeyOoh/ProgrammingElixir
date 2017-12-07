@@ -92,4 +92,72 @@ Elixir uses this to predefine some built-in types and aliases.
 @type term :: any
 @type binary :: <<_::_*8>>
 
+Types and specs  by elixir-lang.org
+-----
+Elixir is a dynamically typed language, so all types in Elixir are inferred by the runtime.
+Nonetheless, Elixir comes with *typespecs*, which are a notation used for:
+1. declaring typed function signatures
+1. declaring custom data types.
+
+Function specifications
+-----
+By default, Elixir provides some basic types, such as *integer* or *pid*, as well as more complex types: for example, the *round/1* function, which rounds a float to its nearest integer, takes a *number* as an argument(an *integer* or a *float*) and returns an *integer*.
+As you can see in its documentation. *round/1*'s typed signature is written as:
+
+`round(number) :: integer`
+
+**::** means that the function on the left side returns a value whose type is what's on the right side.
+Function specs are written with the **@spec** directive, placed right before the function definition. the *round/1* function could be written as:
+
+`@spec round(number) :: integer`
+`def round(number9, do: # implementation...`
+
+
+Defining custom types
+-----
+While Elixir provides a lot of useful built-in types, it's convenient to define custom types when appropriate. This can be done when defining modules through the *@type* directive.
+
+Say we have a `LousyCalculator` module, which performs the usual arithmetic operations(sum, product, and so on) but, instead of returning numbers, it returns tuples with the result of an operation as the first element and a random remark as the second element.
+
+```
+defmodule LousyCalculator do 
+  @spec add(number, number) :: {number, String.t}
+	def add(x, y), do: {x + y, "You need a calculator to do that?!"}
+
+	@spec multiply(number, number) :: {number, String.t}
+	def multiply(x, y), do: {x * y, "Jeez, come out!"}
+end
+```
+
+As you can see in the example, *tuples* are a compound type and tuple is idnentified by the types inside it. To understand why String.t is not written as *string*, have another look at the ![notes in the typespecs docs.](https://hexdocs.pm/elixir/typespecs.html#noteds)
+Note:
+  Elixir discourages the use of type `t:string/0` as it might be confused with binaries which are referred to as "strings" in Elixir(as opposed to character lists). In order to use the type that is called `t:string/0` in Erlang, one has to use the `t:charlist/0` type which is a synonym for `string`. If you use `string`, you'll get a warning from the compiler.
+	If you want to refer to the "string" type(the one opreated on by functions in the `String` module), use `string.t/0` type instead.
+	 
+Defining function specs this way works, but it quickly becomes annoying since we're repeating the type {number, String.t} over and over. We can use the @type directive in order to declare our own custom type.
+
+```
+defmodule LousyCalculator do 
+  @typedoc """
+	Just a number followed by a string.
+	"""
+	@type number_with_remark :: {number, String.t}
+
+	@spec add(number, number) :: number_with_remark
+	def add(x, y), do: { x * y, "You need a calculator to do that?"}
+
+	@spec multiply(number, number) :: number_with_remark
+	def multiply(x, y), do: {x * y, "It is like addition on steroids."}
+end
+```
+
+Behaviours
+----
+Many modules share the same pulic API. Take a look at Plug, which, as its description staes, is a *specification* for composable modules in web applications. Each plug is a module which has to implement at least two public functions: `init/1` and `call/2`.
+
+Behaviours provide a way to:
+* define a set of functions tht have to be implemented by a module;
+* ensure that a module implements all the functions in that set.
+
+ 
 

@@ -19,8 +19,6 @@ For example, Elixir comes with a URI parsing library. This library delegates a c
 	For example, the *mix* utility handles various source code control methods(Source Code Manager(SCM)).
 	Out of the box, it supports git and the local filesystem. However, interface to the SCM is defined using a behaviour, allowing new version control systems to be added cleanly.
 
-
-
   Having defined the behaviour, we can declare that some other module implements it using the @behaviour attribute.
 ```
 defmodule URI.HTTP do 
@@ -49,7 +47,7 @@ Let's work through a larger example.
 We want to write a module called *Tracer*.
 If we use Tracer in another module, entry and exit tracing will be added to any subsequently defined function. 
 
-![tracer.ex](tracer.ex)
+![tracer.ex](./tracer.ex)
 
 ```
 ==> call    puts_sum_three(1, 2, 3)

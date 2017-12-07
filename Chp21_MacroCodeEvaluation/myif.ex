@@ -1,5 +1,7 @@
 defmodule My do 
   defmacro if(condition, clauses) do 
+    IO.puts "condition -> #{inspect condition}"
+    IO.puts "clauses   -> #{inspect clauses}"
     do_clause   = Keyword.get(clauses, :do, nil)
     else_clause = Keyword.get(clauses, :else, nil)
     quote do 
