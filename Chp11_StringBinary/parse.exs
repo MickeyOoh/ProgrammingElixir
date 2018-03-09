@@ -7,7 +7,6 @@ defmodule Parse do
   defp _number_digits([], value),  do: value
   defp _number_digits([ digit | tail ], value)
   when digit in '0123456789' do
-    IO.puts "value:#{value}, digit:#{digit}" 
     _number_digits(tail, value * 10 + digit - ?0)
   end
   defp _number_digits([ non_digit | _ ], _) do 
@@ -15,8 +14,16 @@ defmodule Parse do
   end
 end
 
-IO.puts "Parse.number('123') = #{Parse.number('123')} "
-IO.puts Parse.number('-123')
-IO.puts Parse.number('+123')
-IO.puts Parse.number('+9')
+filename = "./" <> Path.basename(__ENV__.file)
+line_no  = __ENV__.line - 3
+File.open!(filename)
+|> IO.stream(:line)
+|> Enum.take(line_no)
+|> IO.puts
+
+IO.puts "** execute program **"
+IO.puts "Parse.number('123')  => #{Parse.number('123')} "
+IO.puts "Parse.number('-123') => #{Parse.number('-123')}"
+IO.puts "Parse.number('+123') => #{Parse.number('+123')}"
+IO.puts "Parse.number('+9')   => #{Parse.number('+9')}"
 

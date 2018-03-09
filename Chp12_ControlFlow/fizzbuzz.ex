@@ -14,8 +14,17 @@ defmodule FizzBuzz do
         true ->
           current
       end
-
+    say(next_answer)
+    sleep(1) 
     _upto(current + 1, left - 1, [ next_answer | result])
+  end
+  def say(text) do 
+    spawn fn -> :os.cmd('say #{text}') end
+  end
+  def sleep(seconds) do 
+    receive do 
+    after seconds*1000 -> nil
+    end
   end
 end
 

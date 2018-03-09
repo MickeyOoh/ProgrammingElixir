@@ -9,6 +9,6 @@ defmodule Utf8 do
   defp _each(<<>>, _func), do: []
 end
 
-Utf8.each "dog", fn char -> IO.puts char end
+Utf8.each "どog", fn char -> IO.puts char end
 
 

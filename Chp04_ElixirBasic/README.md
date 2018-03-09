@@ -18,6 +18,8 @@ Built-in Types
 	- Maps
 	- Binaries
 
+Function is a type, too.
+
 Atoms
 Atoms are constants that represent something's name. We write them using a leading colon(:), which can be followed by an atom word or an Elixir operator.
 An atom word is a sequence of letters, digits, underscores, and at signs(@). It may end with an exclamation point or a question mark. 
@@ -49,10 +51,10 @@ Operators
 
 * Comparison 
 ```
-a === b
-a !== b
-a == b
-a != b
+a === b    # strict equality   (so 1 === 1.0 is false)
+a !== b    # strict inequality (so 1 !== 1.0 is true)
+a == b     # value equality    (so 1 == 1.0 is true)
+a != b     # value inequality
 a  > b
 a >= b
 a <  b
@@ -109,4 +111,37 @@ iex> with [a|_] <- nil, do: a
 nil
 ```
 
+### A Minor Gotcha
+----
+`with` is treated by Elixir as if it were a call to a function or macro.
+This means that you CANNOT write this: 
+(This is WRONG!)
+
+```
+mean = with
+         count = Enum.count(values),
+         sum   = Enum.sum(values)
+       do
+         sum/count
+       end
+```
+The following codes are all correct!
+```
+mean = with count = Enum.count(values),
+            sum   = Enum.sum(values)
+       do
+          sum/count
+       end
+# or
+mean = with(
+          count = Enum.count(values),
+          sum   = Enum.sum(values)
+       do 
+         sum/count
+       end
+# or
+mean = with count = Enum.count(values),
+            sum   = Enum.sum(values),
+       do:  sum/count
+```
 

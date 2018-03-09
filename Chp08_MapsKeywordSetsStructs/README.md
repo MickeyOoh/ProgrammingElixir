@@ -1,5 +1,9 @@
-Dictionaries: Maps, HashDicts, Keywords, Sets, and Structs
+Maps, HashDicts, Keywords, Sets, and Structs
 ----
+A dictionary is a data type that associates keys with values.
+- maps
+- keyword lists
+we'll cover how to use them with pattern matching and how to update them. Finally we'll look at the *Keyword* module, which implements a specialized dictionary intened for storing function and program options, and the *MapSet* module, which implements sets.
 
 How to Choose Between Maps, HashDicts, and Keywords
 ----
@@ -103,9 +107,6 @@ A struct is just a module that wraps a limited form of map. It's limited beause 
 
 A struct is just a module that wraps a limited form of map. It's limited because the keys must be atoms and because these maps don't have *Dict* capablilities.
 The  name of the module is the name of the map type. Inside the module, you use the defstruct macro to define the struct's members.
-
-
-
 
 
 ## Warning of "defstruct" function

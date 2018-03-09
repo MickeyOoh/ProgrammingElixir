@@ -21,3 +21,5 @@ IO.inspect get_in(nested, [:buffercup, :actor])
 
 IO.inspect get_in(nested, [:buffercup, :actor, :first])
 
+IO.inspect put_in(nested, [:westley, :actor, :last], "Elwes")
+

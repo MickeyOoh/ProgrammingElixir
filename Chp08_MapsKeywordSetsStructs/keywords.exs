@@ -13,7 +13,7 @@ defmodule Canvas do
   end
 end
 
-Canvas.draw_text("hello", fg: "red", style: "italic", style: "bold")
+#Canvas.draw_text("hello", fg: "red", style: "italic", style: "bold")
 
 # =>
 #   Drawing text "hello"
