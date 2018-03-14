@@ -1,7 +1,8 @@
 defmodule FibAgent do 
   def start_link do 
-    cache = Enum.into([{0, 0}, {1, 1}], Map.new)
-    Agent.start_link(fn -> cache end)
+    #    cache = Enum.into([{0, 0}, {1, 1}], Map.new)
+    #Agent.start_link(fn -> cache end)
+    Agent.start_link(fn -> %{ 0 => 0, 1 => 1} end)
   end
 
   def fib(pid, n) when n >= 0 do 

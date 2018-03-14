@@ -1,4 +1,7 @@
+Code.load_file("speaker.ex", __DIR__)
+
 defmodule FizzBuzz do 
+  import Speak
 
   def upto(n) when n > 0, do: _downto(n, [])
 
@@ -15,7 +18,10 @@ defmodule FizzBuzz do
         true -> 
           current
       end
+    say(next_answer)
     _downto(current - 1, [ next_answer | result ])
   end
 end
 
+FizzBuzz.upto(20)
+|> IO.inspect

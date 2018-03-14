@@ -30,6 +30,7 @@ defmodule Issues.CLI do
   end
   #def run(argv) do 
   def main(argv) do 
+    IO.puts "main"
     argv
     |> parse_args
     |> process

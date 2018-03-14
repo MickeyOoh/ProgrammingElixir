@@ -1,4 +1,8 @@
+Code.load_file("speaker.ex", __DIR__)
+
 defmodule FizzBuzz do 
+  import Speak
+
   def upto(n) when n > 0, do: _upto(1, n, [])
 
   defp _upto(_current, 0, result), do: Enum.reverse result
@@ -15,18 +19,9 @@ defmodule FizzBuzz do
           current
       end
     say(next_answer)
-    sleep(1) 
     _upto(current + 1, left - 1, [ next_answer | result])
-  end
-  def say(text) do 
-    spawn fn -> :os.cmd('say #{text}') end
-  end
-  def sleep(seconds) do 
-    receive do 
-    after seconds*1000 -> nil
-    end
   end
 end
 
-result = FizzBuzz.upto(20)
-IO.inspect result
+FizzBuzz.upto(20)
+|> IO.inspect

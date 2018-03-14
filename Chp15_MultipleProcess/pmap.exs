@@ -11,5 +11,17 @@ defmodule Parallel do
   end
 end
 
-lst = Parallel.pmap 1..10, &(&1 * &1)
-IO.inspect lst
+filename = "./" <> Path.basename(__ENV__.file)
+line_no  = __ENV__.line - 3
+File.open!(filename)
+|> IO.stream(:line)
+|> Enum.take(line_no)
+|> IO.puts
+
+eval = """
+list = Parallel.pmap 1..10, &(&1 * &1)
+IO.inspect list
+"""
+IO.puts eval
+Code.eval_string(eval)
+

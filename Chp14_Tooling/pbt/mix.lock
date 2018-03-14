@@ -1,2 +1,4 @@
-%{"excheck": {:hex, :excheck, "0.5.3", "7326a29cc5fdb6900e66dac205a6a70cc994e2fe037d39136817d7dab13cdabf", [], [], "hexpm"},
-  "triq": {:hex, :triq, "1.0.3", "3f1d7b90eab957fbb9b187c9cc81a656ea6c553b4d3598daf5683bba87f4eb67", [], [], "hexpm"}}
+%{
+  "excheck": {:hex, :excheck, "0.5.3", "7326a29cc5fdb6900e66dac205a6a70cc994e2fe037d39136817d7dab13cdabf", [:mix], [], "hexpm"},
+  "triq": {:hex, :triq, "1.0.3", "3f1d7b90eab957fbb9b187c9cc81a656ea6c553b4d3598daf5683bba87f4eb67", [:rebar3], [], "hexpm"},
+}

@@ -1,7 +1,9 @@
 defmodule Chain do 
   def counter(next_pid) do 
+    #IO.puts "counter has been spawned #{inspect self()}"
     receive do 
-      n -> send next_pid, n + 1
+      n -> send(next_pid, n + 1)
+        #IO.puts "send #{inspect next_pid} #{n+1} from #{inspect self()}"
     end
   end
   
@@ -9,7 +11,8 @@ defmodule Chain do
     last = Enum.reduce 1..n, self(),
       fn (_, send_to) -> spawn(Chain, :counter, [send_to])
       end
-    # start the count by sending
+      # start the count by sending
+    #IO.puts " send last=#{inspect last}, 0 from #{inspect self()}"
     send last, 0
     # and wait for the result to come back to us
     receive do 
