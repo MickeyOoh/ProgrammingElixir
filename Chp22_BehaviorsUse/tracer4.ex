@@ -22,12 +22,13 @@ defmodule Tracer do
       import unquote(__MODULE__), only: [def: 2]
     end
   end
-
 end
 
 defmodule Test do 
   use Tracer
-  def puts_sum_three(a,b,c), do: IO.inspect(a+b+c)
+  def puts_sum_three(a,b,c) do
+    IO.inspect(a+b+c)
+  end
   def add_list(list),        do: Enum.reduce(list, 0, &(&1+&2))
 end
 

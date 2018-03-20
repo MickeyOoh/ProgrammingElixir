@@ -1,3 +1,8 @@
+defprotocol Enumerable do 
+  def count(collection)
+  def member?(collection, value)
+  def reduce(collection, acc, fun)
+end
 defimpl Enumerable, for: Bitmap do 
   import :math, only: [log: 1]
 

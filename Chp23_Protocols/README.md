@@ -42,10 +42,10 @@ iex> inspect self
 ### the Available Types
 You can define implementations for one or more of the following types:
 
-|          |          |          |          |          |          |
-|:--------|:--------|:--------|:--------|:--------|:--------|
-| Any      | Atom     | BitString|Float     | Function | Integer  |
-| List     | PID      | Port     |Record    | Reference| Tuple    |
+|         |         |          |         |          |          |
+|:--------|:--------|:---------|:--------|:---------|:---------|
+| Any     | Atom    | BitString|Float    | Function | Integer  |
+| List    | PID     | Port     |Record   | Reference| Tuple    |
 
 You can list multiple types on a single _defimpl_. For example, the following protocol can be called to determine if a type is a collection:
 
