@@ -14,4 +14,3 @@ defmodule Test do
   My.macro(IO.puts("hello"))
 end
 
-

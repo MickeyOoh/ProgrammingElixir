@@ -1,18 +1,27 @@
 defmodule My do
-  #IO.puts(IO.ANSI.clear)
-  #IO.puts(IO.ANSI.home)
-  text = File.read!("#{__ENV__.file}")
-  Enum.join([IO.ANSI.green, text,IO.ANSI.reset], "")
-  |> IO.puts
   defmacro macro(param) do 
     IO.inspect param
   end
 end
 
+
 defmodule Test do 
   require My
+  @codeend (__ENV__.line - 3)
+  @filename "./" <> Path.basename(__ENV__.file)
 
-  #IO.puts File.read!("dumper.exs")
+  IO.puts(IO.ANSI.clear)
+  IO.puts(IO.ANSI.home)
+  #text = File.read!("#{__ENV__.file}")
+  #Enum.join([IO.ANSI.green, text,IO.ANSI.reset], "")
+  #|> IO.puts
+  IO.puts IO.ANSI.green
+  File.open!(@filename)
+  |> IO.stream(:line)
+  |> Enum.take(@codeend)
+  |> IO.puts
+  IO.puts IO.ANSI.reset
+
   # These values represent themselves
   My.macro :atom
   My.macro 1

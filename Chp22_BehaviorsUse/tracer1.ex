@@ -12,8 +12,11 @@ defmodule Test do
 
   def puts_sum_three(a,b,c), do: IO.inspect(a+b+c)
   def add_list(list),        do: Enum.reduce(list, 0, &(&1+&2))
+  def test2(str) do 
+    IO.puts str
+  end
 end
 
 Test.puts_sum_three(1,2,3)
 Test.add_list([5,6,7,8])
-
+Test.test2("Hi,testing multilines")

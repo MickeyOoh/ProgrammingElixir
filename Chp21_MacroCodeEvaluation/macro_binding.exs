@@ -13,3 +13,12 @@ end
 
 IO.puts Test.fred
 
+@comment """
+Two things happen here.
+First, the binding makes the current value of name avaliable inside the body of the quoted block.
+Second, the presence of the *bind_quoted:* option automatically defers the execution of the unquote calls in the body.
+the methods are defined at runtime.
+As its name implies, bind_quoted takes a quoted code fragment.
+"""
+IO.puts @comment
+

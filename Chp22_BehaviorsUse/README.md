@@ -10,14 +10,34 @@ A behavior is therefore a little like an _interface_ in Java. A module uses it t
 For example, an OTP GenServer should implement a standard set of callbacks(*handle_all,handle_cast,* and so on). By declaring that our module implements that behaviour, we let the compiler validate that we have actually supplied the necessary interface. This reduces the chance of an unexpected runtime error.
 
 ### Defining Behaviours
-We define a behaviour using the Elixir *Behaviour* module, combined with *defcallback* definitions.
+We define a behaviour with *defcallback* definitions.
 
-For example, Elixir comes with a URI parsing library. This library delegates a couple of functions to protocol-specific libraries (so there's a library for HTTP,one for FTP, and so on). These protocol-specific libraries must define two functions: **parse** and **default_port**.
-
-### Declaring Behaviours
-  We define a behaviour with @callback definitions.
-	For example, the *mix* utility handles various source code control methods(Source Code Manager(SCM)).
+For example, the *mix* utility handles various source code control methods(Source Code Manager(SCM)).
 	Out of the box, it supports git and the local filesystem. However, interface to the SCM is defined using a behaviour, allowing new version control systems to be added cleanly.
+
+The behaviour is defined in the module Mix.Scm:
+```
+defmodule Mix.SCM do 
+  @moduledoc """
+  This module provides helper functions and defines the behaviour
+  required by any SCM used by Mix.
+  """
+  @type opts :: Keyword.t
+  @doc """
+  Returns a boolean if the dependency can be fetched or it is meant
+  to be previously available in the filesystem.
+  local dependencies (i.e. non fetchable ones) are automatically
+  recompiled every time the parent project is compiled.
+  """
+  @callback fetchable? :: boolean
+  @doc """
+  Returns a string representing the SCM. This is used when printing
+  the dependency and not for inspection, so the amount of information
+  should be concise and easy to spot.
+  """
+  @callback format(opts) :: String.t
+  # and so on for 8 more callbacks
+```
 
   Having defined the behaviour, we can declare that some other module implements it using the @behaviour attribute.
 ```

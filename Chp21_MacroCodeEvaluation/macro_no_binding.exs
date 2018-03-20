@@ -13,3 +13,9 @@ end
 
 IO.puts Test.fred
 
+@comment """
+At the time the macro is called, the *each* loop hasn't yet executed, so we have no valid name to pass it.
+This is where bindings come in: ==> macro_binding.exs
+"""
+
+IO.puts @comment
