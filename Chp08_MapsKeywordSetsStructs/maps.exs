@@ -51,3 +51,7 @@ defmodule Testmaps do
 
   end
 end
+
+
+Testmaps.test1
+
